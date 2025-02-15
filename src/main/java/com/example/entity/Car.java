@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -29,6 +31,9 @@ public class Car {
 
     @Column(name = "fuel_type")
     private String fuelType;
+
+    @OneToMany(mappedBy = "car")
+    private List<Booking> bookings;
 
     public Car(AddCarRequest addCarRequest) {
         this.type = addCarRequest.getType();
