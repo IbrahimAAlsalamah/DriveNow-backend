@@ -18,7 +18,7 @@ public class Booking {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "booking_id")
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "start_date")
@@ -30,6 +30,10 @@ public class Booking {
     @ManyToOne
     @JoinColumn(name="car_id")
     private Car car;
+
+    @ManyToOne
+    @JoinColumn(name="customer_id")
+    private Customer customer;
 
     public Booking(AddBookingRequest addBookingRequest, Car car) {
         this.startDate = addBookingRequest.getStartDate();

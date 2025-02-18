@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -14,7 +16,7 @@ public class Company {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "company_id")
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "name")
@@ -22,5 +24,14 @@ public class Company {
 
     @Column(name = "address")
     private String address;
+
+    @OneToMany(mappedBy = "company")
+    private List<Car> cars;
+
+    @OneToMany(mappedBy = "company")
+    private List<Complaint> complains;
+
+    @OneToMany(mappedBy = "company")
+    private List<Review> reviews;
 
 }

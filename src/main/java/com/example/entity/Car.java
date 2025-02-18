@@ -17,7 +17,7 @@ public class Car {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "car_id")
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "type")
@@ -34,6 +34,10 @@ public class Car {
 
     @OneToMany(mappedBy = "car")
     private List<Booking> bookings;
+
+    @ManyToOne
+    @JoinColumn(name="company_id")
+    private Company company;
 
     public Car(AddCarRequest addCarRequest) {
         this.type = addCarRequest.getType();

@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -15,7 +16,7 @@ public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "customer_id")
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "first_name")
@@ -32,6 +33,15 @@ public class Customer {
 
     @Column(name = "phone")
     private String phone;
+
+    @OneToMany(mappedBy = "customer")
+    private List<Booking> bookings;
+
+    @OneToMany(mappedBy = "customer")
+    private List<Complaint> complaints;
+
+    @OneToMany(mappedBy = "customer")
+    private List<Review> reviews;
 
     public Customer(CreateStudentRequest csr){
         this.firstName = csr.getFirstName();
