@@ -1,5 +1,6 @@
 package com.example.entity;
 
+import com.example.request.CreateReviewRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,5 +31,10 @@ public class Review {
     @ManyToOne
     @JoinColumn(name="customer_id")
     private Customer customer;
+
+    public Review(CreateReviewRequest createReviewRequest) {
+        this.rating = createReviewRequest.getRating();
+        this.comment = createReviewRequest.getComment();
+    }
 
 }

@@ -1,5 +1,6 @@
 package com.example.entity;
 
+import com.example.request.CreateCompanyRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,5 +34,13 @@ public class Company {
 
     @OneToMany(mappedBy = "company")
     private List<Review> reviews;
+
+    @OneToMany(mappedBy = "company")
+    private List<Branch> branches;
+
+    public Company(CreateCompanyRequest createCompanyRequest) {
+        this.name = createCompanyRequest.getName();
+        this.address = createCompanyRequest.getAddress();
+    }
 
 }

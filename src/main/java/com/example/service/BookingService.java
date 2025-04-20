@@ -2,8 +2,12 @@ package com.example.service;
 
 import com.example.entity.Booking;
 import com.example.entity.Car;
+import com.example.entity.Customer;
+import com.example.entity.Receipt;
 import com.example.repository.BookingRepository;
 import com.example.repository.CarRepository;
+import com.example.repository.CustomerRepository;
+import com.example.repository.ReceiptRepository;
 import com.example.request.AddBookingRequest;
 import com.example.request.CheckAvailbiltyRequest;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +21,8 @@ public class BookingService {
 
     private final BookingRepository bookingRepository;
     private final CarRepository carRepository;
+    private final ReceiptRepository receiptRepository;
+    private final CustomerRepository customerRepository;
 
     public boolean checkAvailbilty(CheckAvailbiltyRequest request) {
 
@@ -35,10 +41,19 @@ public class BookingService {
 
     public Booking addBooking(AddBookingRequest booking) {
 
-        Car car = carRepository.findById(booking.getCar()).orElseThrow(() ->
-                new RuntimeException("Car not found with ID: " + booking.getCar()));
+        Car car = carRepository.findById(booking.getCarId()).orElseThrow(() ->
+                new RuntimeException("Car not found with ID: " + booking.getCarId()));
+        Customer customer = customerRepository.findById(booking.getCustomerId()).orElseThrow(() ->
+                new RuntimeException("Customer not found"));
 
-        Booking newBooking = new Booking(booking,car);
+        Receipt receipt = new Receipt(booking.getAmount(), booking.getMethod());
+        Booking newBooking = new Booking(booking);
+
+        receiptRepository.save(receipt);
+
+        newBooking.setReceipt(receipt);
+        newBooking.setCustomer(customer);
+        newBooking.setCar(car);
 
         return bookingRepository.save(newBooking);
     }

@@ -35,10 +35,13 @@ public class Booking {
     @JoinColumn(name="customer_id")
     private Customer customer;
 
-    public Booking(AddBookingRequest addBookingRequest, Car car) {
+    @OneToOne
+    @JoinColumn(name = "receipt_id")
+    private Receipt receipt;
+
+    public Booking(AddBookingRequest addBookingRequest) {
         this.startDate = addBookingRequest.getStartDate();
         this.endDate = addBookingRequest.getEndDate();
-        this.car = car;
     }
 
 }

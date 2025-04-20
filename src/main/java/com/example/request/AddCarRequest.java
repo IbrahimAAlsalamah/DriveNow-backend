@@ -6,6 +6,8 @@ import lombok.Data;
 @Data
 public class AddCarRequest {
 
+    private String name;
+
     private String type;
 
     private String year;

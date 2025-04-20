@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "booking")
+@Table(name = "receipt")
 public class Receipt {
 
     @Id
@@ -23,4 +23,9 @@ public class Receipt {
     @Column(name= "method")
     private String method;
 
+
+    public Receipt(double amount, String method) {
+        this.amount = amount;
+        this.method = method;
+    }
 }

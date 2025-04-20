@@ -1,5 +1,6 @@
 package com.example.entity;
 
+import com.example.request.CreateComplaintRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,5 +33,12 @@ public class Complaint {
     @ManyToOne
     @JoinColumn(name="customer_id")
     private Customer customer;
+
+    public Complaint(CreateComplaintRequest createComplaintRequest,Customer customer, Company company) {
+        this.reason = createComplaintRequest.getReason();
+        this.date = createComplaintRequest.getDate();
+        this.company = company;
+        this.customer = customer;
+    }
 
 }
