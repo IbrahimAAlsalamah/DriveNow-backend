@@ -1,6 +1,8 @@
 package com.example.entity;
 
 import com.example.request.CreateCompanyRequest;
+import com.example.request.UpdateInfoRequest;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,24 +25,28 @@ public class Company {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "address")
-    private String address;
+    @Column(name = "phone")
+    private String phone;
+
+    @Column(name = "email")
+    private String email;
 
     @OneToMany(mappedBy = "company")
-    private List<Car> cars;
-
-    @OneToMany(mappedBy = "company")
+    @JsonIgnore
     private List<Complaint> complains;
 
     @OneToMany(mappedBy = "company")
-    private List<Review> reviews;
-
-    @OneToMany(mappedBy = "company")
+    @JsonIgnore
     private List<Branch> branches;
 
     public Company(CreateCompanyRequest createCompanyRequest) {
         this.name = createCompanyRequest.getName();
-        this.address = createCompanyRequest.getAddress();
+        //this.address = createCompanyRequest.getAddress();
+    }
+
+    public Company(UpdateInfoRequest updateInfoRequest) {
+        this.name = updateInfoRequest.getName();
+        this.phone = updateInfoRequest.getPhone();
     }
 
 }

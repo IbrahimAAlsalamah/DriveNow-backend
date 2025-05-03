@@ -1,6 +1,7 @@
 package com.example.request;
 
 import com.example.entity.Car;
+import com.example.entity.Customer;
 import com.example.entity.Receipt;
 import lombok.Data;
 
@@ -13,12 +14,10 @@ public class AddBookingRequest {
 
     private Date endDate;
 
-    private Long carId;
+    private Car car;
 
-    private Long customerId;
+    private Customer customer;
 
-    private double amount;
-
-    private String method;
+    private Receipt receipt;
 
 }

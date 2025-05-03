@@ -1,19 +1,16 @@
 package com.example.service;
 
-import com.example.entity.Booking;
-import com.example.entity.Car;
-import com.example.entity.Customer;
-import com.example.entity.Receipt;
-import com.example.repository.BookingRepository;
-import com.example.repository.CarRepository;
-import com.example.repository.CustomerRepository;
-import com.example.repository.ReceiptRepository;
+import com.example.entity.*;
+import com.example.repository.*;
 import com.example.request.AddBookingRequest;
 import com.example.request.CheckAvailbiltyRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -23,13 +20,14 @@ public class BookingService {
     private final CarRepository carRepository;
     private final ReceiptRepository receiptRepository;
     private final CustomerRepository customerRepository;
+    private final BranchRepository branchRepository;
 
-    public boolean checkAvailbilty(CheckAvailbiltyRequest request) {
+    public boolean checkAvailbilty(long carId, Date startDate, Date endDate) {
 
-        if(!carRepository.findById(request.getCarId()).isPresent())
+        if(!carRepository.findById(carId).isPresent())
             return false;
 
-        if (bookingRepository.checkAvailbilty(request.getCarId(), request.getStartDate(),request.getEndDate())==0){
+        if (bookingRepository.checkAvailbilty(carId, startDate,endDate)==0){
             return true;
         }
         return false;
@@ -39,26 +37,31 @@ public class BookingService {
         return bookingRepository.findById(id).orElse(null);
     }
 
-    public Booking addBooking(AddBookingRequest booking) {
+    public void addBooking(AddBookingRequest booking) {
 
-        Car car = carRepository.findById(booking.getCarId()).orElseThrow(() ->
-                new RuntimeException("Car not found with ID: " + booking.getCarId()));
-        Customer customer = customerRepository.findById(booking.getCustomerId()).orElseThrow(() ->
-                new RuntimeException("Customer not found"));
-
-        Receipt receipt = new Receipt(booking.getAmount(), booking.getMethod());
         Booking newBooking = new Booking(booking);
+        receiptRepository.save(booking.getReceipt());
 
-        receiptRepository.save(receipt);
+        newBooking.setReceipt(booking.getReceipt());
+        newBooking.setCustomer(booking.getCustomer());
+        newBooking.setCar(booking.getCar());
 
-        newBooking.setReceipt(receipt);
-        newBooking.setCustomer(customer);
-        newBooking.setCar(car);
-
-        return bookingRepository.save(newBooking);
+        bookingRepository.save(newBooking);
     }
 
     public void deleteBooking(Long id) {
         bookingRepository.deleteById(id);
+    }
+
+    public Booking updateBookingStatus(Long id, String status) {
+        Booking booking = bookingRepository.findById(id).orElse(null);
+        booking.setStatus(status);
+        return bookingRepository.save(booking);
+    }
+
+    public void setStatus(Long id, String status) {
+        Booking booking = bookingRepository.findById(id).orElse(null);
+        booking.setStatus(status);
+        bookingRepository.save(booking);
     }
 }

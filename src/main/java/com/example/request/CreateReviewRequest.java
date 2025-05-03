@@ -11,6 +11,6 @@ public class CreateReviewRequest {
 
     private Long customerId;
 
-    private Long companyId;
+    private Long branchId;
 
 }

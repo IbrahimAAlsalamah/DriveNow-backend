@@ -1,14 +1,16 @@
 package com.example.entity;
 
 import com.example.request.CreateStudentRequest;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
 import java.util.List;
 
+@Setter
+@Getter
 @Entity
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "customer")
@@ -38,9 +40,11 @@ public class Customer {
     private List<Booking> bookings;
 
     @OneToMany(mappedBy = "customer")
+    @JsonIgnore
     private List<Complaint> complaints;
 
     @OneToMany(mappedBy = "customer")
+    @JsonIgnore
     private List<Review> reviews;
 
     public Customer(CreateStudentRequest csr){

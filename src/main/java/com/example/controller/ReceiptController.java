@@ -14,9 +14,9 @@ public class ReceiptController {
 
     private final ReceiptService receiptService;
 
-    @GetMapping("getByBookingId/{id}")
-    public ResponseEntity<Receipt> getReceiptById(@PathVariable Long id) {
-        return new ResponseEntity<>(receiptService.getReceiptById(id), HttpStatus.OK);
-    }
+//    @GetMapping("getByBookingId/{id}")
+//    public ResponseEntity<Receipt> getReceiptById(@PathVariable Long id) {
+//        return new ResponseEntity<>(receiptService.getReceiptById(id), HttpStatus.OK);
+//    }
 
 }

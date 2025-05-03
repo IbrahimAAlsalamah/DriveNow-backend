@@ -25,7 +25,7 @@ public class ComplaintService {
 
         Company company = companyRepository.findById(
                 newComplaint.getCompanyId()).orElseThrow( () ->
-                new ResourceNotFoundException("Customer not found "));
+                new ResourceNotFoundException("Company not found "));
         Customer customer = customerRepository.findById(
                 newComplaint.getCustomerId()).orElseThrow( () ->
                         new ResourceNotFoundException("Customer not found "));

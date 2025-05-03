@@ -1,6 +1,7 @@
 package com.example.entity;
 
 import com.example.request.CreateReviewRequest;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,16 +26,22 @@ public class Review {
     private String comment;
 
     @ManyToOne
-    @JoinColumn(name="company_id")
-    private Company company;
+    @JoinColumn(name="branch_id")
+    @JsonIgnore
+    private Branch branch;
 
     @ManyToOne
     @JoinColumn(name="customer_id")
+    @JsonIgnore
     private Customer customer;
 
     public Review(CreateReviewRequest createReviewRequest) {
         this.rating = createReviewRequest.getRating();
         this.comment = createReviewRequest.getComment();
+    }
+
+    public String getCustomerName() {
+        return customer.getFirstName() + " " + customer.getLastName();
     }
 
 }

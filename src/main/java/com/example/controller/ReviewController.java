@@ -19,12 +19,11 @@ public class ReviewController {
 
     @PostMapping("create")
     public ResponseEntity<Review> createReview(@RequestBody CreateReviewRequest review) {
-        return new ResponseEntity<>(reviewService.createReview(review), HttpStatus.CREATED);
+        return new ResponseEntity<>(reviewService.createReview(review), HttpStatus.OK);
     }
 
-    @GetMapping("getReviewsByCarId/{carId}")
-    public ResponseEntity<List<Review>> getReviewsByCarId(@PathVariable Long carId) {
-        return new ResponseEntity<>(reviewService.getReviewsByCarId(carId),HttpStatus.OK);
-    }
-
+//    @GetMapping("getReviewsByCarId/{carId}")
+//    public ResponseEntity<List<Review>> getReviewsByCarId(@PathVariable Long carId) {
+//        return new ResponseEntity<>(reviewService.getReviewsByCarId(carId),HttpStatus.OK);
+//    }
 }

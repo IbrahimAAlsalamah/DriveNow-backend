@@ -19,8 +19,8 @@ public class ComplaintController {
     private final ComplaintService complaintService;
 
     @PostMapping("create")
-    public ResponseEntity<Complaint> CreateComplaint(@RequestBody CreateComplaintRequest newComplaint) {
-        return new ResponseEntity<>(complaintService.CreateCompliant(newComplaint), HttpStatus.OK);
+    public void CreateComplaint(@RequestBody CreateComplaintRequest newComplaint) {
+        new ResponseEntity<>(complaintService.CreateCompliant(newComplaint), HttpStatus.OK);
     }
 
 }

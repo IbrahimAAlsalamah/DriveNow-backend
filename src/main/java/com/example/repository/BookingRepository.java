@@ -11,7 +11,7 @@ import java.util.Date;
 public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     @Query(value = "SELECT count(*) FROM booking WHERE (car_id = ?1) " +
-            "AND (start_date <=?3 AND end_date >=?2 )", nativeQuery = true)
+            "AND status <> 'Cancelled' AND (start_date <=?3 AND end_date >=?2 ) ", nativeQuery = true)
     int checkAvailbilty(Long carID, Date startDate, Date endDate);
 
 }

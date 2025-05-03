@@ -1,16 +1,16 @@
 package com.example.entity;
 
 import com.example.request.AddBookingRequest;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Date;
 import java.util.Optional;
 
+@Setter
+@Getter
 @Entity
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "booking")
@@ -27,12 +27,16 @@ public class Booking {
     @Column(name = "end_date")
     private Date endDate;
 
+    @Column(name = "status")
+    private String status = "Confirmed";
+
     @ManyToOne
     @JoinColumn(name="car_id")
     private Car car;
 
     @ManyToOne
     @JoinColumn(name="customer_id")
+    @JsonIgnore
     private Customer customer;
 
     @OneToOne
@@ -43,5 +47,13 @@ public class Booking {
         this.startDate = addBookingRequest.getStartDate();
         this.endDate = addBookingRequest.getEndDate();
     }
+
+    public String getCustomerName() {
+        return customer.getFirstName() + " " + customer.getLastName();
+    }
+
+//    public String getCarType() {
+//        return car.getType();
+//    }
 
 }

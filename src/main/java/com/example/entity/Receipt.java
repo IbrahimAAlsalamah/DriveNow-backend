@@ -1,5 +1,6 @@
 package com.example.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,6 +23,15 @@ public class Receipt {
 
     @Column(name= "method")
     private String method;
+
+//    @OneToOne
+//    @JoinColumn(name = "booking_id")
+//    private Booking booking;
+
+    @ManyToOne
+    @JoinColumn(name = "branch_id")
+    @JsonIgnore
+    private Branch branch;
 
 
     public Receipt(double amount, String method) {

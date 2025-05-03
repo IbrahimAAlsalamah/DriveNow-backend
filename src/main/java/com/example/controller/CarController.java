@@ -17,10 +17,7 @@ public class CarController {
     @Autowired
     CarService carService;
 
-    @PostMapping("add")
-    public ResponseEntity<Car> addCar(@RequestBody AddCarRequest car) {
-        return new ResponseEntity<>(carService.addCar(car), HttpStatus.OK);
-    }
+
 
     @GetMapping("getCar/{id}")
     public ResponseEntity<Car> getCarById(@PathVariable Long id) {
@@ -37,6 +34,14 @@ public class CarController {
         return new ResponseEntity<>(carService.getCarsByType(type),HttpStatus.OK);
     }
 
+    @PutMapping("updateAvailability/{id}/{isAvailable}")
+    public ResponseEntity<Car> updateAvailability(@PathVariable Long id, @PathVariable Boolean isAvailable) {
+        return new ResponseEntity<>(carService.updateAvailability(id,isAvailable),HttpStatus.OK);
+    }
 
+    @PutMapping("updateCar")
+    public ResponseEntity<Car> updateCar(@RequestBody AddCarRequest car) {
+        return ResponseEntity.ok(carService.updateCar(car));
+    }
 
 }

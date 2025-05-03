@@ -6,6 +6,8 @@ import lombok.Data;
 @Data
 public class AddCarRequest {
 
+    private Long id;
+
     private String name;
 
     private String type;
@@ -15,5 +17,11 @@ public class AddCarRequest {
     private double price;
 
     private String fuelType;
+
+    private boolean isAvailable;
+
+    private int capacity;
+
+    private String transmission;
 
 }

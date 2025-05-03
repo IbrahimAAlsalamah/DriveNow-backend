@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@ComponentScan({"com.example.controller", "com.example.service", "com.example.exception"})
+@ComponentScan({"com.example.controller", "com.example.service", "com.example.exception", "com.example.config"})
 @EntityScan("com.example.entity")
 @EnableJpaRepositories("com.example.repository")
 public class DriveNowApplication {

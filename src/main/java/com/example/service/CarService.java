@@ -14,10 +14,6 @@ public class CarService {
 
     private final CarRepository carRepository;
 
-    public Car addCar(AddCarRequest car) {
-        Car newCar = new Car(car);
-        return carRepository.save(newCar);
-    }
 
     public Car getCarById(Long id) {
         return carRepository.findById(id).orElse(null);
@@ -29,5 +25,17 @@ public class CarService {
 
     public List<Car> getCarsByType(String type) {
         return carRepository.findByType(type);
+    }
+
+    public Car updateAvailability(Long id, Boolean availability) {
+        Car car = carRepository.findById(id).orElse(null);
+        car.setAvailable(availability);
+        return carRepository.save(car);
+    }
+
+    public Car updateCar(AddCarRequest car) {
+        Car savedCar = carRepository.findById(car.getId()).orElse(null);
+        savedCar.updateCar(car);
+        return carRepository.save(savedCar);
     }
 }
