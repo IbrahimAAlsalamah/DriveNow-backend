@@ -37,6 +37,8 @@ public class CustomerService {
         Customer customer = customerRepository.findByEmail(getEmailFromToken(token));
         customer.setFirstName(csr.getFirstName());
         customer.setLastName(csr.getLastName());
+        customer.setPhone(csr.getPhone());
+        customer.setBirthDate(csr.getBirthDate());
         customer.setEmail(getEmailFromToken(token));
         return customerRepository.save(customer);
     }

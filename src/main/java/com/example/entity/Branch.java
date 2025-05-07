@@ -42,6 +42,8 @@ public class Branch {
     @Column(name = "inAirport")
     private Boolean inAirport;
 
+    @Column(name = "fcm_token")
+    private String fcmToken;
 
     @OneToMany(mappedBy = "branch")
     private List<Car> cars;

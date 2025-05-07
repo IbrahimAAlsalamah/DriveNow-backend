@@ -20,4 +20,6 @@ public class AddBookingRequest {
 
     private Receipt receipt;
 
+    private Long branchId;
+
 }

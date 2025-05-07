@@ -65,9 +65,14 @@ public class BranchService {
     public double Incomes(String token) throws FirebaseAuthException {
         Branch branch = branchRepository.findByEmail(getEmailFromToken(token));
         double incomes = 0;
-        for (Receipt receipt : branch.getReceipts()) {
-            incomes += receipt.getAmount();
-            System.out.println(incomes);
+//        for (Receipt receipt : branch.getReceipts()) {
+//            incomes += receipt.getAmount();
+//            System.out.println(incomes);
+//        }
+        for(Booking booking : branch.getBookings()) {
+            if(!"Cancelled".equals(booking.getStatus())) {
+                incomes += booking.getReceipt().getAmount();
+            }
         }
         return incomes;
     }
@@ -149,4 +154,13 @@ public class BranchService {
         }
         return rates / branch.getReviews().size();
     }
+
+    public void updateFcmToken( Long branchId, String fcmToken) {
+        Branch branch = branchRepository.findById(branchId).orElse(null);
+        if (branch != null) {
+            branch.setFcmToken(fcmToken);
+            branchRepository.save(branch);
+        }
+    }
+
 }

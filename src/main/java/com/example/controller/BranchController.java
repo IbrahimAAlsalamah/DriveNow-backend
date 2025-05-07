@@ -72,8 +72,8 @@ public class BranchController {
 
     @PostMapping("addCar")
     public ResponseEntity<Car> addCar(@RequestBody AddCarRequest car,
-                                      @RequestHeader("Authorization") String token)  throws FirebaseAuthException{
-        return new ResponseEntity<>(branchService.addCar(car,token), HttpStatus.OK);
+                                      @RequestHeader("Authorization") String token) throws FirebaseAuthException {
+        return new ResponseEntity<>(branchService.addCar(car, token), HttpStatus.OK);
     }
 
     @GetMapping("getBranchesByCity/{city}")
@@ -106,4 +106,8 @@ public class BranchController {
         return branchService.getBranchRating(id);
     }
 
+    @PutMapping("/updateFcmToken/{branchId}")
+    public void updateFcmToken(@PathVariable Long branchId, @RequestBody String fcmToken) {
+        branchService.updateFcmToken(branchId, fcmToken);
+    }
 }
